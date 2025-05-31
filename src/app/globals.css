@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  /* REMOVED color-scheme to prevent dark mode */
+  color: #242424;
+  background-color: #ffffff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #f3f4f6;
+  overflow-x: hidden;
+}
+
+/* FIXED image blending */
+.techfest_icon {
+  mix-blend-mode: multiply;
+  background-color: white; /* Add white background for proper blending */
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  height: auto;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.containerLeft,
+.containerRight {
+  padding: 2rem;
+  width: 50%;
+}
+
+.containerLeft {
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.containerRight {
+  border-radius: 0 0.5rem 0.5rem 0;
+  color: white;
+  background-color: #8B80F9;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.inputName {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+/* FIXED input background */
+input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background-color: white; /* Explicit white background */
+  color: #242424; /* Explicit text color */
+}
+
+button.submit {
+  background-color: #c2410c;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: bold;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.submit:hover {
+  background-color: #9a3412;
+}
+
+.techfest-imgs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logos {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column-reverse;
+    border-radius: 1rem;
+  }
+
+  .containerLeft,
+  .containerRight {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  /* FIXED mobile rounding */
+  .containerLeft {
+    border-radius: 0 0 0.5rem 0.5rem;
+  }
+  
+  .containerRight {
+    border-radius: 0.5rem 0.5rem 0 0;
+  }
+
+  .inputName {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .input {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .techfest-imgs img {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .logos {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .join {
+    font-size: 2rem;
+  }
+
+  .joinsubtext {
+    font-size: 1rem;
+  }
+
+  .fText {
+    font-size: 1.5rem;
+  }
+
+  .presents {
+    font-size: 1rem;
+  }
+}
