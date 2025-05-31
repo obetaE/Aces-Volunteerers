@@ -117,14 +117,15 @@ export default function Volunteer() {
             </div>
 
             <div className="input mb-4 w-full">
+              <label htmlFor="role" className="block mb-1 font-medium">
+                Volunteer Role
+              </label>
               <select
+              id="role"
                 value={level}
                 onChange={(e) => setLevel(e.target.value)}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
               >
-                <option value="">
-                  Which Role would you like to volunteer for?
-                </option>
                 <option value="Unsure">Unsure</option>
                 <option value="Marketing and Publicity">
                   Marketing and Publicity
