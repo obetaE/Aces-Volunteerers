@@ -17,7 +17,6 @@ export default function Volunteer() {
     setError("");
     setSuccess("");
 
-
     if (!firstname || !lastname || !level || !number) {
       setError("All fields are required!!!");
       setLoading(false);
@@ -41,8 +40,6 @@ export default function Volunteer() {
         return;
       }
 
-
-
       const sendName = await fetch("/api/messages", {
         method: "POST",
         headers: {
@@ -60,7 +57,7 @@ export default function Volunteer() {
         setSuccess("You've been successly registered");
       } else {
         setError("Unable to Register Your Name. Try again later!");
-        console.log("Registration failed")
+        console.log("Registration failed");
       }
     } catch (error) {
       console.log("Error during registration: ", error);
@@ -120,17 +117,35 @@ export default function Volunteer() {
             </div>
 
             <div className="input mb-4 w-full">
-              <label htmlFor="Level" className="block mb-1 font-medium">
-                Level
-              </label>
-              <input
-                id="Level"
-                type="text"
-                name="level"
+              <select
                 value={level}
                 onChange={(e) => setLevel(e.target.value)}
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
-              />
+              >
+                <option value="">
+                  Which Role would you like to volunteer for?
+                </option>
+                <option value="Unsure">Unsure</option>
+                <option value="Marketing and Publicity">
+                  Marketing and Publicity
+                </option>
+                <option value="Logistics and Setup">Logistics and Setup</option>
+                <option value="Technical Support">Technical Support</option>
+                <option value="Registration and Information">
+                  Registration and Information
+                </option>
+                <option value="Event Management">Event Management</option>
+                <option value="Hospitality">Hospitality</option>
+                <option value="Media, Design and Creative">
+                  Media, Design and Creative
+                </option>
+                <option value="Documentation and Content Creation">
+                  Documentation and Content Creation
+                </option>
+                <option value="Safety and Risk Management">
+                  Safety and Risk Management
+                </option>
+              </select>
             </div>
 
             <div className="input mb-6 w-full">

@@ -108,7 +108,7 @@ export default function AdminPanel() {
                   <span>Last Name: {volunteer.lastname}</span>
                   <span>Number: {volunteer.number}</span>
                 </div>
-                <div className={styles.right}>{volunteer.level} Level</div>
+                <div className={styles.right}>Role: {volunteer.level} </div>
               </div>
             ))
           ) : (
