@@ -185,6 +185,9 @@ export default function Volunteer() {
         <div className="containerRight flex flex-col justify-between w-full md:w-1/2 p-6 md:p-8 bg-[#8B80F9] rounded-r-xl">
           <div>
             <p className="fText text-white text-xl md:text-2xl font-bold mb-2">
+              Rivers State University 
+            </p>
+            <p className="fText text-white text-xl md:text-2xl font-bold mb-2">
               Computer Engineering
             </p>
             <p className="presents text-white mb-6 font-bold">Presents:</p>
