@@ -54,7 +54,7 @@ export default function Volunteer() {
         setLevel("");
         setNumber("");
 
-        setSuccess("You've been successly registered");
+        setSuccess("You've been Successfully Registered");
       } else {
         setError("Unable to Register Your Name. Try again later!");
         console.log("Registration failed");
