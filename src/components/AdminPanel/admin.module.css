@@ -1,165 +1,291 @@
-/* admin.module.css */
-.container {
-    padding: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .container h1 {
-    text-align: center;
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 2rem;
-    color: #242424;
-  }
-  
-  .section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-  
-  .volunteer {
-    background-color: white;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .volunteer span {
-    display: block;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #e5e7eb;
-  }
-  
-  .volunteer .right {
-    margin-top: auto;
-    text-align: right;
-    font-weight: bold;
-    color: #c2410c;
-  }
-  
-  .admin {
-    background-color: white;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .adminHeader {
-    display: block;
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid #8B80F9;
-  }
-  
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-  
-  .inputGroup {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .inputGroup label {
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    color: #4b5563;
-  }
-  
-  .inputGroup input {
-    padding: 0.75rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    background-color: white;
-    color: #242424;
-    transition: all 0.3s ease;
-  }
-  
-  .inputGroup input:focus {
-    outline: none;
-    border-color: #8B80F9;
-    box-shadow: 0 0 0 3px rgba(139, 128, 249, 0.2);
-  }
-  
-  .button {
-    background-color: #c2410c;
-    color: white;
-    font-weight: bold;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-size: 1rem;
-    margin-top: 1rem;
-  }
-  
-  .button:hover {
-    background-color: #9a3412;
-  }
 
-  /* Add to admin.module.css */
-.volunteerHeader {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #e5e7eb;
+.container {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background-color: #f5f7fa;
 }
 
-.volunteerItem {
+.header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2d3748;
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  font-size: 1.1rem;
+  color: #718096;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.adminCard {
+  grid-column: span 2;
+}
+
+.cardHeader {
   display: flex;
   justify-content: space-between;
-  padding: 1rem 0;
-  border-bottom: 1px solid #e5e7eb;
+  align-items: center;
+  padding: 1.2rem 1.5rem;
+  background-color:  #c2410c;
+  color: white;
+}
+
+.cardHeader h2 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.countBadge {
+  background-color: white;
+  color: #8B80F9;
+  border-radius: 20px;
+  padding: 0.25rem 0.75rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  min-width: 40px;
+  text-align: center;
+}
+
+.cardContent {
+  padding: 1.5rem;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.listItem {
+  background-color: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #edf2f7;
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.listItem:hover {
+  background-color: #f0f4f8;
+  border-color: #e2e8f0;
+  transform: translateX(3px);
+}
+
+.itemContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.itemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #2d3748;
+}
+
+.role, .email {
+  background-color: #e9d8fd;
+  color: #553c9a;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.email {
+  background-color: #bee3f8;
+  color: #2b6cb0;
+}
+
+.itemDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail {
+  font-size: 0.95rem;
+  color: #4a5568;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: #a0aec0;
+  font-size: 1.1rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-weight: 500;
+  color: #4a5568;
+  font-size: 0.95rem;
+}
+
+.formGroup input {
+  padding: 0.85rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: #9a3412;
+  box-shadow: 0 0 0 3px rgba(139, 128, 249, 0.2);
+  background-color: white;
+}
+
+.submitButton {
+  background-color: #c2410c;
+  color: white;
+  font-weight: 600;
+  padding: 0.9rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.submitButton:hover {
+  background-color: #9a3412;
+}
+
+.submitButton:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+.loading, .error, .emptyState {
+  text-align: center;
+  padding: 2rem 1rem;
+  font-size: 1.1rem;
+}
+
+.loading {
+  color: #4a5568;
 }
 
 .error {
   color: #e53e3e;
-  font-weight: 500;
-  margin-top: 1rem;
-  text-align: center;
 }
 
-.success {
-  color: #38a169;
+.errorMessage {
+  background-color: #fff5f5;
+  color: #e53e3e;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
   font-weight: 500;
-  margin-top: 1rem;
   text-align: center;
+  border: 1px solid #fed7d7;
 }
-  
-  /* Responsive styles */
-  @media (max-width: 768px) {
-    .section {
-      grid-template-columns: 1fr;
-    }
-    
-    .container h1 {
-      font-size: 1.75rem;
-    }
+
+.successMessage {
+  background-color: #f0fff4;
+  color: #38a169;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  font-weight: 500;
+  text-align: center;
+  border: 1px solid #c6f6d5;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .adminCard {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
   }
   
-  @media (max-width: 480px) {
-    .container {
-      padding: 1rem;
-    }
-    
-    .container h1 {
-      font-size: 1.5rem;
-    }
-    
-    .volunteer,
-    .admin {
-      padding: 1rem;
-    }
+  .container {
+    padding: 1.5rem;
   }
+  
+  .header h1 {
+    font-size: 2rem;
+  }
+  
+  .cardHeader {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .cardContent {
+    padding: 1rem;
+  }
+  
+  .itemHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .role, .email {
+    margin-top: 0.25rem;
+  }
+}

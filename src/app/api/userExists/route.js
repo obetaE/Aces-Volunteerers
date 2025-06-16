@@ -1,25 +1,25 @@
 import { connectMongoDB } from "@/libs/config/db";
-import Messages from "@/libs/models/Messages"; // Use your volunteer model
+import Register from "@/libs/models/Register" // Use your volunteer model
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-    const { firstname, lastname, level, number } = await req.json();
+    const { fullname, email, number, expectation } = await req.json();
     await connectMongoDB();
 
     // Check for existing volunteer with ALL matching fields
-    const existingVolunteer = await Messages.findOne({
-      firstname,
-      lastname,
-      level,
+    const existingVolunteer = await Register.findOne({
+      fullname,
+      email,
       number,
+      expectation,
     });
 
     return NextResponse.json({ exists: !!existingVolunteer });
   } catch (error) {
     console.log(error);
     return NextResponse.json(
-      { message: "Error checking volunteer existence" },
+      { message: "Error checking register existence" },
       { status: 500 }
     );
   }

@@ -1,19 +1,28 @@
 import { NextResponse } from "next/server";
 import { connectMongoDB } from "@/libs/config/db"
-import UserModel from "@/libs/models/UserModel"
+import Register from "@/libs/models/Register"
+
+export async function GET() {
+  try {
+    await connectMongoDB();
+    const volunteers = await Register.find().sort({ createdAt: -1 }); // Newest first
+    return NextResponse.json(volunteers, { status: 200 });
+  } catch (error) {
+    console.error("Error fetching registered users:", error);
+    return NextResponse.json(
+      { message: "Error fetching registered users" },
+      { status: 500 }
+    );
+  }
+}
 
 export async function POST(req) {
     try {
-        const { fullname, email, password } = await req.json();
-        console.log("Fullname:", fullname);
-        console.log("Email:", email);
-        console.log("Password:", password);
-            
-    
-        const dbFullname = fullname.toLowerCase();
-        const dbEmail = email.toLowerCase();
+        const regData = await req.json();
+        console.log(regData);
+
         await connectMongoDB();
-        await UserModel.create({ fullname: dbFullname, email: dbEmail, password })
+        await Register.create({ fullname: regData.fullname, email: regData.email , number: regData.number, expectation: regData.expectation })
 
 
         return NextResponse.json({ message: "User Registered" }, { status: 201 })

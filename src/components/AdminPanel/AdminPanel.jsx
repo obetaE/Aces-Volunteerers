@@ -1,3 +1,4 @@
+
 "use client";
 import React, { useState, useEffect } from "react";
 import styles from "./admin.module.css";
@@ -16,6 +17,9 @@ export default function AdminPanel() {
   const [volunteers, setVolunteers] = useState([]);
   const [loadingVolunteers, setLoadingVolunteers] = useState(true);
   const [volunteerError, setVolunteerError] = useState("");
+  const [loadingRegister, setLoadingRegister] = useState(true);
+  const [register, setRegister] = useState([]);
+  const [registerError, setRegisterError] = useState("");
 
   // Fetch volunteers on component mount
   useEffect(() => {
@@ -42,6 +46,33 @@ export default function AdminPanel() {
     fetchVolunteers();
   }, []);
 
+  // Fetch registered on component mount
+  useEffect(() => {
+    const fetchRegistered = async () => {
+      try {
+        setLoadingRegister(true);
+        const response = await fetch("/api/register");
+
+        if (!response.ok) {
+          throw new Error(
+            `Failed to fetch Registered People: ${response.status}`
+          );
+        }
+
+        const data = await response.json();
+        setRegister(data);
+        setRegisterError("");
+      } catch (error) {
+        console.error("Error fetching registered users:", error);
+        setRegisterError("Failed to load registered users data");
+      } finally {
+        setLoadingRegister(false);
+      }
+    };
+
+    fetchRegistered();
+  }, []);
+
   const handleAdminSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -62,7 +93,7 @@ export default function AdminPanel() {
     }
 
     try {
-      const response = await fetch("/api/register", {
+      const response = await fetch("/api/messages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -90,90 +121,169 @@ export default function AdminPanel() {
 
   return (
     <div className={styles.container}>
-      <h1>Welcome, what do you want to do today?</h1>
+      <div className={styles.header}>
+        <h1>Admin Dashboard</h1>
+        <p>Manage volunteers and registered candidates</p>
+      </div>
 
-      <div className={styles.section}>
-        <div className={styles.volunteer}>
-          <h2 className={styles.volunteerHeader}>Registered Volunteers</h2>
+      <div className={styles.grid}>
+        {/* Volunteers Section */}
+        <div className={styles.card}>
+          <div className={styles.cardHeader}>
+            <h2>Registered Volunteers</h2>
+            <span className={styles.countBadge}>{volunteers.length}</span>
+          </div>
 
-          {loadingVolunteers ? (
-            <div className={styles.loading}>Loading volunteers...</div>
-          ) : volunteerError ? (
-            <div className={styles.error}>{volunteerError}</div>
-          ) : volunteers.length > 0 ? (
-            volunteers.map((volunteer) => (
-              <div key={volunteer._id} className={styles.volunteerItem}>
-                <div className={styles.left}>
-                  <span>First Name: {volunteer.firstname}</span>
-                  <span>Last Name: {volunteer.lastname}</span>
-                  <span>Number: {volunteer.number}</span>
-                </div>
-                <div className={styles.right}>Role: {volunteer.level} </div>
+          <div className={styles.cardContent}>
+            {loadingVolunteers ? (
+              <div className={styles.loading}>Loading volunteers...</div>
+            ) : volunteerError ? (
+              <div className={styles.error}>{volunteerError}</div>
+            ) : volunteers.length > 0 ? (
+              <div className={styles.listContainer}>
+                {volunteers.map((volunteer) => (
+                  <div key={volunteer._id} className={styles.listItem}>
+                    <div className={styles.itemContent}>
+                      <div className={styles.itemHeader}>
+                        <span className={styles.name}>
+                          {volunteer.firstname} {volunteer.lastname}
+                        </span>
+                        <span className={styles.role}>{volunteer.level}</span>
+                      </div>
+                      <div className={styles.itemDetails}>
+                        <span className={styles.detail}>
+                          <strong>Phone:</strong> {volunteer.number}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))
-          ) : (
-            <p>No volunteers registered yet</p>
-          )}
+            ) : (
+              <div className={styles.emptyState}>
+                <p>No volunteers registered yet</p>
+              </div>
+            )}
+          </div>
         </div>
 
-        <div className={styles.admin}>
-          <span className={styles.adminHeader}>Create A New Admin</span>
-          <form onSubmit={handleAdminSubmit} className={styles.form}>
-            <div className={styles.inputGroup}>
-              <label htmlFor="fullname">Full Name:</label>
-              <input
-                type="text"
-                id="fullname"
-                value={fullname}
-                onChange={(e) => setFullname(e.target.value)}
-                placeholder="Type your FullName"
-                required
-              />
-            </div>
+        {/* Candidates Section */}
+        <div className={styles.card}>
+          <div className={styles.cardHeader}>
+            <h2>Registered Candidates</h2>
+            <span className={styles.countBadge}>{register.length}</span>
+          </div>
 
-            <div className={styles.inputGroup}>
-              <label htmlFor="email">Email:</label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Type your Email"
-                required
-              />
-            </div>
+          <div className={styles.cardContent}>
+            {loadingRegister ? (
+              <div className={styles.loading}>
+                Loading registered candidates...
+              </div>
+            ) : registerError ? (
+              <div className={styles.error}>{registerError}</div>
+            ) : register.length > 0 ? (
+              <div className={styles.listContainer}>
+                {register.map((registers) => (
+                  <div key={registers._id} className={styles.listItem}>
+                    <div className={styles.itemContent}>
+                      <div className={styles.itemHeader}>
+                        <span className={styles.name}>
+                          {registers.fullname}
+                        </span>
+                        <span className={styles.email}>{registers.email}</span>
+                      </div>
+                      <div className={styles.itemDetails}>
+                        <span className={styles.detail}>
+                          <strong>Phone:</strong> {registers.number}
+                        </span>
+                        <span className={styles.detail}>
+                          <strong>Expectation:</strong> {registers.expectation}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className={styles.emptyState}>
+                <p>No candidates registered yet</p>
+              </div>
+            )}
+          </div>
+        </div>
 
-            <div className={styles.inputGroup}>
-              <label htmlFor="password">Password:</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Type your Password"
-                required
-              />
-            </div>
+        {/* Admin Form Section */}
+        <div className={`${styles.card} ${styles.adminCard}`}>
+          <div className={styles.cardHeader}>
+            <h2>Create New Admin</h2>
+          </div>
 
-            <div className={styles.inputGroup}>
-              <label htmlFor="confirmpassword">Confirm Password:</label>
-              <input
-                type="password"
-                id="confirmpassword"
-                value={confirmpassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Confirm your Password"
-                required
-              />
-            </div>
+          <div className={styles.cardContent}>
+            <form onSubmit={handleAdminSubmit} className={styles.form}>
+              <div className={styles.formGroup}>
+                <label htmlFor="fullname">Full Name:</label>
+                <input
+                  type="text"
+                  id="fullname"
+                  value={fullname}
+                  onChange={(e) => setFullname(e.target.value)}
+                  placeholder="Type your FullName"
+                  required
+                />
+              </div>
 
-            <button type="submit" className={styles.button} disabled={loading}>
-              {loading ? "Creating..." : "Register New Admin"}
-            </button>
-          </form>
+              <div className={styles.formGroup}>
+                <label htmlFor="email">Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Type your Email"
+                  required
+                />
+              </div>
 
-          {adminError && <p className={styles.error}>{adminError}</p>}
-          {adminSuccess && <p className={styles.success}>{adminSuccess}</p>}
+              <div className={styles.formGroup}>
+                <label htmlFor="password">Password:</label>
+                <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Type your Password"
+                  required
+                />
+              </div>
+
+              <div className={styles.formGroup}>
+                <label htmlFor="confirmpassword">Confirm Password:</label>
+                <input
+                  type="password"
+                  id="confirmpassword"
+                  value={confirmpassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Confirm your Password"
+                  required
+                />
+              </div>
+
+              <button
+                type="submit"
+                className={styles.submitButton}
+                disabled={loading}
+              >
+                {loading ? "Creating..." : "Register New Admin"}
+              </button>
+            </form>
+
+            {adminError && (
+              <div className={styles.errorMessage}>{adminError}</div>
+            )}
+            {adminSuccess && (
+              <div className={styles.successMessage}>{adminSuccess}</div>
+            )}
+          </div>
         </div>
       </div>
     </div>
