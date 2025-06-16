@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Aces TechFest Volunteers",
-  description: "A volunteering website for the ACES TechFest",
+  title: "Aces TechFest 2025",
+  description: "Regsitrations are now Ongoing!! Join Us at River State University for an experience like no other",
 };
 
 export default function RootLayout({ children }) {
